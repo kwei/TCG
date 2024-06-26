@@ -17,7 +17,7 @@ export default function Home() {
     })
       .then((res) => res.json())
       .then((res) => {
-        setPlayers(res.playerList);
+        if (res.status) setPlayers(res.playerList);
         setLoading(false);
       });
   }
