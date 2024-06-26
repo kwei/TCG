@@ -1,12 +1,12 @@
 export const PG_CONFIG = {
-	user: "avnadmin",
-	password: process.env.AIVEN_PG_PASSWORD ?? "",
-	host: "pg-service-kw-playground.g.aivencloud.com",
-	port: 27997,
-	database: "session",
-	ssl: {
-		rejectUnauthorized: true,
-		ca: `-----BEGIN CERTIFICATE-----
+  user: process.env.AIVEN_PG_USER ?? "",
+  password: process.env.AIVEN_PG_PASSWORD ?? "",
+  host: "pg-service-kw-playground.g.aivencloud.com",
+  port: 27997,
+  database: process.env.AIVEN_PG_DB ?? "defaultdb",
+  ssl: {
+    rejectUnauthorized: true,
+    ca: `-----BEGIN CERTIFICATE-----
 MIIEQTCCAqmgAwIBAgIUV/HgmTj8VITBTaGKBmxPGOL+/ggwDQYJKoZIhvcNAQEM
 BQAwOjE4MDYGA1UEAwwvMmE5NGU2YmUtZjY3Ni00Yjc3LTg5NTYtOTQ0MzM3NTc5
 OTUxIFByb2plY3QgQ0EwHhcNMjQwNjI1MDgzNzQyWhcNMzQwNjIzMDgzNzQyWjA6
@@ -31,5 +31,5 @@ xqV91Y5alEBPbIEWWtOIeOcCRAfgL5zH7S56Kmkglm0eeFSsIk4bJQVe+o4CXXNF
 r/+44RNlrjg7MBiinXUeYlmBNy9LzYn20GHl7eK6raZ9awt6CC2aX9k/rH34nqd6
 WUQ154SA7OghAUTCGa3Og3jU994RS2DE9VbHjrtQJD9GH2PtdA==
 -----END CERTIFICATE-----`,
-	},
+  },
 };
