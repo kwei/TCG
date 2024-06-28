@@ -3,7 +3,8 @@
 import { create } from "@/services/webRTC/create";
 import { signaling } from "@/services/webRTC/signaling";
 import { join } from "@/services/webRTC/join";
-import { useCallback, useRef, useState, ChangeEvent } from "react";
+import { init } from "@/services/webRTC/simpleTest";
+import { useCallback, useRef, useState, ChangeEvent, useEffect } from "react";
 
 export const Room = () => {
   const [roomId, setRoomId] = useState("");
@@ -78,6 +79,11 @@ export const Room = () => {
     }
   }, [roomId, userName1]);
 
+  useEffect(() => {
+    const { createConnection } = init();
+    createConnection();
+  }, []);
+
   return (
     <div className="flex w-full flex-col gap-4">
       <div className="flex w-full items-center gap-4 rounded-[14px] border border-solid border-gray-500 p-3">
@@ -124,6 +130,20 @@ export const Room = () => {
           onClick={sendMessage}
         >
           Send Message
+        </button>
+      </div>
+
+      <div className="flex items-center gap-4 rounded-[14px] border border-solid border-gray-500 p-3">
+        <input
+          type="text"
+          id="dataChannelSend"
+          className="flex-1 px-2 text-black"
+        />
+        <button
+          className="cursor-pointer rounded-sm border border-solid border-gray-500 px-2 py-1"
+          id="sendButton"
+        >
+          Test Send
         </button>
       </div>
     </div>
