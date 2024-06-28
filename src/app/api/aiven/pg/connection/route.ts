@@ -23,6 +23,7 @@ export async function POST(req: Request) {
           client,
           body.RoomID,
         );
+        await client.end();
         return NextResponse.json({
           status: true,
           playerCount,
@@ -30,15 +31,18 @@ export async function POST(req: Request) {
         });
       case "set":
         await joinRoom(client, body.RoomID, body.data);
+        await client.end();
         return NextResponse.json({
           status: true,
         });
       case "delete":
         await leaveRoom(client, body.RoomID, body.data);
+        await client.end();
         return NextResponse.json({
           status: true,
         });
       default:
+        await client.end();
         return NextResponse.json({
           status: false,
         });

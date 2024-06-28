@@ -3,7 +3,7 @@ import SqlString from "sqlstring";
 
 export const leaveRoom = async (
   client: pg.Client,
-  roomId: number,
+  roomId: string,
   data: Room,
 ) => {
   const SQL_CHECK_COL = SqlString.format(

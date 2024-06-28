@@ -1,13 +1,19 @@
 interface PGReq {
 	action: "set" | "delete" | "get";
-	RoomID: number;
+	RoomID: string;
 	data: Room;
 }
 
 interface Room {
-	RoomID: number;
+	RoomID: string;
 	UserName: string;
-	ICE: string;
-	SDP: string;
+	ICE: RTCIceCandidate;
+	SDP: RTCSessionDescription;
 	Timestamp: string;
+}
+
+interface Message {
+	userName: string;
+	message: string;
+	timestamp: number;
 }
