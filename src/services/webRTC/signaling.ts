@@ -34,7 +34,7 @@ export const signaling = async (
         await pc
           .addIceCandidate(new RTCIceCandidate(playerList[0].ICE))
           .then(() => {
-            console.log("Remote ICE Candidate: ", playerList[0].ICE);
+            console.log("Set Remote ICE Candidate: ", playerList[0].ICE);
           })
           .catch((e) => {
             console.log("Set Remote ICE Candidate Failed: ", e);

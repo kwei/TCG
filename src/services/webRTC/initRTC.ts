@@ -4,21 +4,38 @@ export const initRTC = (roomId: string, userName: string) => {
   console.log("Listen on ICE Candidate Event");
   pc.onicecandidate = (event) => {
     if (event.candidate) {
-      console.log("Local ICE Candidate: ", event.candidate);
+      console.log("Send Local ICE Candidate: ", event.candidate);
       fetch("/api/aiven/pg/connection", {
         method: "POST",
         body: JSON.stringify({
-          action: "set",
+          action: "get",
           RoomID: roomId,
-          data: {
-            UserName: userName,
-            RoomID: roomId,
-            SDP: pc.localDescription,
-            ICE: event.candidate,
-            Timestamp: new Date().toISOString(),
-          },
         } as PGReq),
-      }).then();
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.status) {
+            const playerList = (res.playerList as Room[]).filter(
+              (player) => player.UserName === userName,
+            );
+            if (playerList.length === 0) {
+              fetch("/api/aiven/pg/connection", {
+                method: "POST",
+                body: JSON.stringify({
+                  action: "set",
+                  RoomID: roomId,
+                  data: {
+                    UserName: userName,
+                    RoomID: roomId,
+                    SDP: pc.localDescription,
+                    ICE: event.candidate,
+                    Timestamp: new Date().toISOString(),
+                  },
+                } as PGReq),
+              }).then();
+            }
+          }
+        });
     }
   };
 
