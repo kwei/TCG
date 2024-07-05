@@ -1,2 +1,2 @@
 # TCG
-Try to implement a PTCG website
+Try to implement a TCG website
