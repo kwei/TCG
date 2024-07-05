@@ -1,15 +1,10 @@
 export const createOffer = async (pc: RTCPeerConnection) => {
-  await pc
+  console.log("Create Offer");
+  return pc
     .createOffer()
-    .then(async (offer) => {
-      await pc.setLocalDescription(offer);
-    })
-    .then(() => {
-      console.log("Set Local SDP: ", pc.localDescription);
-    })
+    .then((offer) => offer.sdp!)
     .catch((e) => {
       console.log("Set Local SDP Failed: ", e);
+      return "";
     });
-
-  return pc;
 };

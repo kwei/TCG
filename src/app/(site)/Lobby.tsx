@@ -8,7 +8,7 @@ export const Lobby = () => {
   return (
     <Block>
       <h1 className="mb-4 w-full text-center text-2xl font-bold">
-        歡迎來到 TCG 對戰網站
+        歡迎來到 PTCG 對戰網站
       </h1>
       <BasicInfoSubmitForm className="flex flex-col">
         <Profile randomIndex={randomIndex} />

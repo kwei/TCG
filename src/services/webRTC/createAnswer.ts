@@ -1,13 +1,10 @@
 export const createAnswer = async (pc: RTCPeerConnection) => {
-  await pc
+  console.log("Create Answer");
+  return pc
     .createAnswer()
-    .then(async (answer) => {
-      await pc.setLocalDescription(answer);
-    })
-    .then(() => {
-      console.log("Set Local SDP: ", pc.localDescription);
-    })
+    .then((answer) => answer.sdp!)
     .catch((e) => {
       console.log("Set Local SDP Failed: ", e);
+      return "";
     });
 };

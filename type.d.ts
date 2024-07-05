@@ -14,8 +14,10 @@ interface Room {
 
 interface Message {
   type: "chat" | "ctrl";
-  userName: string;
-  avatarIndex: number;
+  userInfo: {
+    userName: string;
+    avatarIndex: number;
+  };
   message: string;
   timestamp: number;
 }

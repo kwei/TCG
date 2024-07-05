@@ -7,8 +7,10 @@ export const initDataChannel = (
     dc.send(
       JSON.stringify({
         type: "ctrl",
-        userName: "",
-        avatarIndex: 0,
+        userInfo: {
+          userName: "",
+          avatarIndex: 0,
+        },
         message: "聊天室以開啟",
         timestamp: new Date().getTime(),
       } as Message),

@@ -14,8 +14,7 @@ const SQL_CREATE_ICE_TYPE = SqlString.format(`
   CREATE TYPE ICE AS (
     "candidate" text,
     "sdpMLineIndex" int,
-    "sdpMid" text,
-    "usernameFragment" text
+    "sdpMid" text
   )
 `);
 

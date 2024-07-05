@@ -11,14 +11,13 @@ export const joinRoom = async (
     [roomId, data.UserName],
   );
   const SQL_SET_DATA = SqlString.format(
-    `INSERT INTO public.rooms ("RoomID", "UserName", "ICE", "SDP", "Timestamp") VALUES (?, ?, (?,?,?,?)::ice, (?,?)::sdp, CAST(? AS TIMESTAMP))`,
+    `INSERT INTO public.rooms ("RoomID", "UserName", "ICE", "SDP", "Timestamp") VALUES (?, ?, (?,?,?)::ice, (?,?)::sdp, CAST(? AS TIMESTAMP))`,
     [
       roomId,
       data.UserName,
-      data.ICE.candidate,
-      data.ICE.sdpMLineIndex,
-      data.ICE.sdpMid,
-      data.ICE.usernameFragment,
+      data.ICE?.candidate,
+      data.ICE?.sdpMLineIndex,
+      data.ICE?.sdpMid,
       data.SDP.type as string,
       data.SDP.sdp,
       data.Timestamp,

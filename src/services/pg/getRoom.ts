@@ -13,20 +13,9 @@ export const getRoom = async (client: pg.Client, roomId: string) => {
     Timestamp: string;
     sdp: string;
     type: string;
-    address: string;
     candidate: string;
-    component: string;
-    foundation: string;
-    port: number;
-    priority: number;
-    protocol: string;
-    relatedAddress: string;
-    relatedPort: number;
     sdpMLineIndex: number;
     sdpMid: string;
-    tcpType: string;
-    iceType: string;
-    usernameFragment: string;
   }>(SQL_GET_ALL);
   console.log("[PG] Get All: ", result.rowCount);
   return {
@@ -37,20 +26,9 @@ export const getRoom = async (client: pg.Client, roomId: string) => {
           RoomID: value.RoomID,
           UserName: value.UserName,
           ICE: {
-            address: value.address,
             candidate: value.candidate,
-            component: value.component,
-            foundation: value.foundation,
-            port: value.port,
-            priority: value.priority,
-            protocol: value.protocol,
-            relatedAddress: value.relatedAddress,
-            relatedPort: value.relatedPort,
             sdpMLineIndex: value.sdpMLineIndex,
             sdpMid: value.sdpMid,
-            tcpType: value.tcpType,
-            type: value.type,
-            usernameFragment: value.usernameFragment,
           } as RTCIceCandidate,
           SDP: {
             type: value.type,

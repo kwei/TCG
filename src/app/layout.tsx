@@ -9,8 +9,8 @@ import { ReactNode } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "KW-TCG",
-  description: "A serverless and RTC application for TCG (Trading Card Game).",
+  title: "KW-PTCG",
+  description: "A serverless and RTC application for PTCG (Pokemon Trading Card Game).",
 };
 
 export default function RootLayout({

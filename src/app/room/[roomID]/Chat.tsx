@@ -7,12 +7,14 @@ import { TbSend2 } from "react-icons/tb";
 interface Props {
   send?: (message: Message) => void;
   messages: Message[];
-  userName: string;
-  avatarIndex: number;
+  userInfo: {
+    userName: string;
+    avatarIndex: number;
+  };
 }
 
 export const Chat = (props: Props) => {
-  const { messages, userName, avatarIndex, send } = props;
+  const { messages, userInfo, send } = props;
   const msgRef = useRef<HTMLInputElement>(null);
   const msgListRef = useRef<HTMLUListElement>(null);
   const [maxHeight, setMaxHeight] = useState("");
@@ -22,12 +24,11 @@ export const Chat = (props: Props) => {
     if (msg === "" || !send) return;
     send({
       type: "chat",
-      userName,
-      avatarIndex,
+      userInfo,
       message: msg,
       timestamp: new Date().getTime(),
     });
-  }, [userName, avatarIndex]);
+  }, [userInfo]);
 
   useEffect(() => {
     if (msgListRef.current) {
@@ -51,9 +52,9 @@ export const Chat = (props: Props) => {
       >
         {messages.map((message) => (
           <Msg
-            key={`${message.userName}-${message.timestamp}`}
+            key={`${message.userInfo.userName}-${message.timestamp}`}
             message={message}
-            self={message.userName === userName}
+            self={message.userInfo.userName === userInfo.userName}
           />
         ))}
       </ul>
@@ -95,12 +96,12 @@ const Msg = ({ message, self }: { message: Message; self: boolean }) => {
       >
         <div className="border-frame flex size-10 items-center justify-center rounded-full border-2 border-solid">
           <Image
-            src={`/avatars/${message.avatarIndex}.svg`}
+            src={`/avatars/${message.userInfo.avatarIndex}.svg`}
             className="size-8 object-scale-down"
             width={32}
             height={32}
             alt="Avatar"
-            title={message.userName}
+            title={message.userInfo.userName}
             priority
           />
         </div>

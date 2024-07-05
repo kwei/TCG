@@ -8,15 +8,12 @@ import {
   TbCopy,
   TbLink,
   TbPointer,
-  TbRefresh,
 } from "react-icons/tb";
 
-interface Props {
-  refresh: () => void;
-}
+interface Props {}
 
 export const ControlPanel = (props: Props) => {
-  const { refresh } = props;
+  const {} = props;
 
   const { setMsg, setType } = useToastCtx();
   const copyRoomLink = useCallback(() => {
@@ -49,13 +46,6 @@ export const ControlPanel = (props: Props) => {
           <span className="pl-7">邀請連結</span>
         </button>
       </div>
-      <button
-        className="group/refresh hover:bg-light-base-color bg-base-color flex items-center gap-2 rounded-sm p-2 pr-3 transition-colors"
-        onClick={refresh}
-      >
-        <TbRefresh className="size-5 transition-transform group-hover/refresh:rotate-180" />
-        <span>刷新</span>
-      </button>
     </div>
   );
 };
