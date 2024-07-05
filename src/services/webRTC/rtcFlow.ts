@@ -28,19 +28,26 @@ export async function rtcFlow(
     console.log("Signaling ICE To Remote");
     send(Stage.RECEIVE_ICE, role, ice);
   });
+  dataChannel = peerConnection.createDataChannel("test-channel", {
+    negotiated: true,
+    id: 0,
+    ordered: false,
+  });
+  console.log("Create Data Channel", dataChannel);
+  initDataChannel(dataChannel, handleMessage);
 
   console.log(`Role: ${role}`);
   if (role === Role.Guest) {
-    console.log("Listen on Data Channel");
-    peerConnection.ondatachannel = (event) => {
-      dataChannel = event.channel;
-      initDataChannel(dataChannel, handleMessage);
-    };
+    // console.log("Listen on Data Channel");
+    // peerConnection.ondatachannel = (event) => {
+    //   dataChannel = event.channel;
+    //   initDataChannel(dataChannel, handleMessage);
+    // };
     send(Stage.GUEST_READY, role, "");
   } else if (role === Role.Host) {
-    dataChannel = peerConnection.createDataChannel("test-channel");
-    console.log("Create Data Channel");
-    initDataChannel(dataChannel, handleMessage);
+    // dataChannel = peerConnection.createDataChannel("test-channel");
+    // console.log("Create Data Channel");
+    // initDataChannel(dataChannel, handleMessage);
   }
   onMessage(Stage.GUEST_READY, async (userName: string) => {
     if (role !== userName) {
@@ -48,62 +55,66 @@ export async function rtcFlow(
       const offer = await peerConnection.createOffer();
       console.log("Set Offer");
       await setLocalSDP(offer);
-      console.log("Send Offer");
+      console.log("Send Offer", peerConnection.localDescription);
       sendOffer(offer);
     }
   });
-  onMessage(Stage.RECEIVE_OFFER, async (userName: string, sdp: string) => {
-    if (role !== userName) {
-      console.log("Set Offer");
-      await handleOffer(sdp);
-      console.log("Create Answer");
-      const answer = await peerConnection.createAnswer();
-      console.log("Set Answer");
-      await setLocalSDP(answer);
-      console.log("Send Answer");
-      sendAnswer(answer);
-    }
-  });
-  onMessage(Stage.RECEIVE_ANSWER, async (userName: string, sdp: string) => {
-    if (role !== userName) {
-      console.log("Set Answer");
-      await handleAnswer(sdp);
-    }
-  });
+  onMessage(
+    Stage.RECEIVE_OFFER,
+    async (userName: string, offer: RTCSessionDescriptionInit) => {
+      if (role !== userName) {
+        console.log("Set Offer", offer);
+        await handleOffer(offer);
+        console.log("Create Answer");
+        const answer = await peerConnection.createAnswer();
+        console.log("Set Answer");
+        await setLocalSDP(answer);
+        console.log("Send Answer", peerConnection.localDescription);
+        sendAnswer(answer);
+      }
+    },
+  );
+  onMessage(
+    Stage.RECEIVE_ANSWER,
+    async (userName: string, answer: RTCSessionDescriptionInit) => {
+      if (role !== userName) {
+        console.log("Set Answer", answer);
+        await handleAnswer(answer);
+      }
+    },
+  );
   onMessage(
     Stage.RECEIVE_ICE,
     async (userName: string, candidate: RTCIceCandidate) => {
       if (role !== userName) {
-        console.log("Set Candidate");
+        console.log("Set Candidate", candidate);
         await handleCandidate(candidate);
       }
     },
   );
 
   async function setLocalSDP(offer: RTCSessionDescriptionInit) {
-    return peerConnection.setLocalDescription(offer);
+    return peerConnection.setLocalDescription(new RTCSessionDescription(offer));
   }
 
   function sendOffer(offer: RTCSessionDescriptionInit) {
-    send(Stage.RECEIVE_OFFER, role, offer.sdp);
+    send(Stage.RECEIVE_OFFER, role, offer);
   }
 
   function sendAnswer(offer: RTCSessionDescriptionInit) {
-    send(Stage.RECEIVE_ANSWER, role, offer.sdp);
+    send(Stage.RECEIVE_ANSWER, role, offer);
   }
 
-  async function handleOffer(sdp: string) {
-    return peerConnection.setRemoteDescription({
-      type: "offer",
-      sdp,
-    });
+  async function handleOffer(offer: RTCSessionDescriptionInit) {
+    return peerConnection.setRemoteDescription(
+      new RTCSessionDescription(offer),
+    );
   }
 
-  async function handleAnswer(sdp: string) {
-    return peerConnection.setRemoteDescription({
-      type: "answer",
-      sdp,
-    });
+  async function handleAnswer(answer: RTCSessionDescriptionInit) {
+    return peerConnection.setRemoteDescription(
+      new RTCSessionDescription(answer),
+    );
   }
 
   async function handleCandidate(candidate: RTCIceCandidate) {

@@ -15,8 +15,8 @@ export const createPeerConnection = (
     console.log("[PC] Signaling State: ", pc.signalingState);
   };
 
-  pc.onconnectionstatechange = (event) => {
-    console.log("[PC] Connection State: ", pc.connectionState, event);
+  pc.onconnectionstatechange = () => {
+    console.log("[PC] Connection State: ", pc.connectionState);
   };
 
   pc.oniceconnectionstatechange = () => {
