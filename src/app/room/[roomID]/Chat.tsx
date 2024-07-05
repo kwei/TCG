@@ -20,21 +20,23 @@ export const Chat = (props: Props) => {
   const [maxHeight, setMaxHeight] = useState("");
 
   const sendMessage = useCallback(() => {
-    const msg = msgRef.current?.value ?? "";
+    if (!msgRef.current) return;
+    const msg = msgRef.current.value;
     if (msg === "" || !send) return;
     send({
       type: "chat",
       userInfo,
       message: msg,
-      timestamp: new Date().getTime(),
+      timestamp: new Date().getTime()
     });
-  }, [userInfo]);
+    msgRef.current.value = "";
+  }, [send, userInfo]);
 
   useEffect(() => {
     if (msgListRef.current) {
       msgListRef.current.scrollTo({
         behavior: "smooth",
-        top: msgListRef.current.scrollHeight,
+        top: msgListRef.current.scrollHeight
       });
     }
   }, [messages]);
@@ -47,7 +49,7 @@ export const Chat = (props: Props) => {
     <div className="flex h-full w-full flex-col">
       <ul
         ref={msgListRef}
-        className="border-frame flex w-full flex-1 flex-col gap-4 overflow-x-hidden overflow-y-scroll rounded-sm border border-b-0 border-solid p-1"
+        className="border-frame flex w-full flex-1 flex-col gap-2 overflow-x-hidden overflow-y-scroll rounded-sm border border-b-0 border-solid p-1"
         style={{ maxHeight }}
       >
         {messages.map((message) => (
@@ -58,7 +60,8 @@ export const Chat = (props: Props) => {
           />
         ))}
       </ul>
-      <div className="border-frame flex w-full items-center justify-between rounded-sm border-x border-b border-t border-solid">
+      <div
+        className="border-frame flex w-full items-center justify-between rounded-sm border-x border-b border-t border-solid">
         <input
           type="text"
           ref={msgRef}
@@ -106,7 +109,8 @@ const Msg = ({ message, self }: { message: Message; self: boolean }) => {
           />
         </div>
         <div className="max-w-[calc(100%-60px)] pt-3">
-          <div className="bg-frame before:border-r-frame relative w-fit text-balance break-words rounded-full px-2 py-1 before:absolute before:-left-5 before:translate-y-1/2 before:border-x-[12px] before:border-y-4 before:border-transparent">
+          <div
+            className="bg-frame before:border-r-frame relative w-fit text-balance break-words rounded-full px-2 py-1 before:absolute before:-left-5 before:translate-y-1/2 before:border-x-[12px] before:border-y-4 before:border-transparent">
             {message.message}
           </div>
         </div>
@@ -118,7 +122,8 @@ const Msg = ({ message, self }: { message: Message; self: boolean }) => {
       className="flex flex-row-reverse pr-2"
       title={new Date(message.timestamp).toLocaleString()}
     >
-      <div className="bg-frame before:border-l-frame relative max-w-[calc(100%-60px)] text-balance break-words rounded-full px-2 py-1 before:absolute before:-right-5 before:translate-y-1/2 before:border-x-[12px] before:border-y-4 before:border-transparent">
+      <div
+        className="bg-frame before:border-l-frame relative max-w-[calc(100%-60px)] text-balance break-words rounded-full px-2 py-1 before:absolute before:-right-5 before:translate-y-1/2 before:border-x-[12px] before:border-y-4 before:border-transparent">
         {message.message}
       </div>
     </li>

@@ -7,13 +7,15 @@ import {
   TbArrowNarrowLeft,
   TbCopy,
   TbLink,
-  TbPointer,
+  TbPointer
 } from "react-icons/tb";
 
-interface Props {}
+interface Props {
+  leaveRoom: () => void;
+}
 
 export const ControlPanel = (props: Props) => {
-  const {} = props;
+  const { leaveRoom } = props;
 
   const { setMsg, setType } = useToastCtx();
   const copyRoomLink = useCallback(() => {
@@ -28,12 +30,15 @@ export const ControlPanel = (props: Props) => {
       <div className="flex items-center gap-6">
         <Link
           href="/"
+          id='leave-room-btn'
+          onClick={leaveRoom}
           className="group/leave hover:bg-light-base-color flex items-center gap-2 rounded-sm p-2 pr-3 transition-colors"
         >
           <TbArrowNarrowLeft className="size-5 transition-transform group-hover/leave:-translate-x-1" />
           <span>離開</span>
         </Link>
-        <button className="group/restart hover:bg-light-base-color flex items-center gap-2 rounded-sm p-2 pr-3 transition-colors">
+        <button
+          className="group/restart hover:bg-light-base-color flex items-center gap-2 rounded-sm p-2 pr-3 transition-colors">
           <TbPointer className="size-5 -scale-x-100 transition-transform group-hover/restart:translate-x-1" />
           <span>重新開始</span>
         </button>

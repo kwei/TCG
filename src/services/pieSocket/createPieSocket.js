@@ -4,7 +4,7 @@ export async function createPieSocket(roomId) {
   const pieSocket = new PieSocket({
     clusterId: "free.blr2",
     apiKey: "p92tUWPCLY9GLUZ1ybSTDA1YoSQwogrOWoMC1vzc",
-    notifySelf: true,
+    notifySelf: true
   });
   const channel = await pieSocket.subscribe(roomId);
   const onMessage = (topic, cb) => {
@@ -16,9 +16,13 @@ export async function createPieSocket(roomId) {
   const send = (topic, from, data) => {
     channel.publish(topic, {
       data,
-      userName: from,
+      userName: from
     });
   };
 
-  return { send, onMessage };
+  const remove = () => {
+    pieSocket.unsubscribe(roomId);
+  };
+
+  return { send, onMessage, remove };
 }

@@ -10,6 +10,7 @@ enum Stage {
   RECEIVE_OFFER = "offer",
   RECEIVE_ANSWER = "answer",
   RECEIVE_ICE = "ice",
+  LEAVE = "leave"
 }
 
 enum Role {
@@ -20,34 +21,25 @@ enum Role {
 export async function rtcFlow(
   roomID: string,
   role: Role,
-  handleMessage: (message: Message) => void,
+  handleMessage: (message: Message) => void
 ) {
-  const { send, onMessage } = await createPieSocket(roomID);
+  const { send, onMessage, remove } = await createPieSocket(roomID);
 
   peerConnection = createPeerConnection((ice) => {
     console.log("Signaling ICE To Remote");
     send(Stage.RECEIVE_ICE, role, ice);
   });
-  dataChannel = peerConnection.createDataChannel("test-channel", {
+  dataChannel = peerConnection.createDataChannel(roomID, {
     negotiated: true,
     id: 0,
-    ordered: false,
+    ordered: false
   });
   console.log("Create Data Channel", dataChannel);
   initDataChannel(dataChannel, handleMessage);
 
   console.log(`Role: ${role}`);
   if (role === Role.Guest) {
-    // console.log("Listen on Data Channel");
-    // peerConnection.ondatachannel = (event) => {
-    //   dataChannel = event.channel;
-    //   initDataChannel(dataChannel, handleMessage);
-    // };
     send(Stage.GUEST_READY, role, "");
-  } else if (role === Role.Host) {
-    // dataChannel = peerConnection.createDataChannel("test-channel");
-    // console.log("Create Data Channel");
-    // initDataChannel(dataChannel, handleMessage);
   }
   onMessage(Stage.GUEST_READY, async (userName: string) => {
     if (role !== userName) {
@@ -72,7 +64,7 @@ export async function rtcFlow(
         console.log("Send Answer", peerConnection.localDescription);
         sendAnswer(answer);
       }
-    },
+    }
   );
   onMessage(
     Stage.RECEIVE_ANSWER,
@@ -81,7 +73,7 @@ export async function rtcFlow(
         console.log("Set Answer", answer);
         await handleAnswer(answer);
       }
-    },
+    }
   );
   onMessage(
     Stage.RECEIVE_ICE,
@@ -90,7 +82,17 @@ export async function rtcFlow(
         console.log("Set Candidate", candidate);
         await handleCandidate(candidate);
       }
-    },
+    }
+  );
+  onMessage(
+    Stage.LEAVE,
+    async () => {
+      console.log("Leave Room");
+      peerConnection.close();
+      dataChannel.close();
+      remove();
+      document.getElementById("leave-room-btn")?.click();
+    }
   );
 
   async function setLocalSDP(offer: RTCSessionDescriptionInit) {
@@ -107,13 +109,13 @@ export async function rtcFlow(
 
   async function handleOffer(offer: RTCSessionDescriptionInit) {
     return peerConnection.setRemoteDescription(
-      new RTCSessionDescription(offer),
+      new RTCSessionDescription(offer)
     );
   }
 
   async function handleAnswer(answer: RTCSessionDescriptionInit) {
     return peerConnection.setRemoteDescription(
-      new RTCSessionDescription(answer),
+      new RTCSessionDescription(answer)
     );
   }
 
@@ -121,5 +123,5 @@ export async function rtcFlow(
     return peerConnection.addIceCandidate(candidate);
   }
 
-  return dataChannel;
+  return { peerConnection, dataChannel, send };
 }
