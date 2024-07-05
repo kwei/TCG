@@ -1,6 +1,6 @@
 export const initDataChannel = (
   dc: RTCDataChannel,
-  onMessage: (msg: Message) => void,
+  onMessage: (msg: Message) => void
 ) => {
   dc.onopen = () => {
     console.log("Data channel is open");
@@ -9,11 +9,11 @@ export const initDataChannel = (
         type: "ctrl",
         userInfo: {
           userName: "",
-          avatarIndex: 0,
+          avatarIndex: 0
         },
         message: "聊天室以開啟",
-        timestamp: new Date().getTime(),
-      } as Message),
+        timestamp: new Date().getTime()
+      } as Message)
     );
   };
 
@@ -22,7 +22,7 @@ export const initDataChannel = (
   };
 
   dc.onerror = (error) => {
-    console.error("Data channel error:", error);
+    console.log("Data channel error:", error);
   };
 
   dc.onmessage = (event) => {
