@@ -1,8 +1,7 @@
 "use client";
 
 interface Props {
-  ready: boolean;
-  dataChannel: RTCDataChannel;
+
 }
 
 /**
