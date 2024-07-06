@@ -1,7 +1,9 @@
 export const createPeerConnection = (
   onIceCandidate: (data: RTCIceCandidate) => void,
 ) => {
-  const pc = new RTCPeerConnection();
+  const pc = new RTCPeerConnection({
+    iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
+  });
 
   pc.onicecandidate = (event) => {
     if (event.candidate) {
