@@ -23,7 +23,7 @@ export const AvatarSelectorCtx = ({ children }: { children: ReactNode }) => {
     <Ctx.Provider value={ctxVal}>
       {children}
       <div
-        className={`fixed bottom-0 left-0 right-0 top-0 flex items-center justify-center ${show ? "visible" : "invisible"}`}
+        className={`fixed bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center ${show ? "visible" : "invisible"}`}
       >
         <div
           className={`h-1/2 w-[576px] rounded-xl bg-dark-base-color p-8 transition-all duration-300 ${show ? "scale-100" : "scale-0"}`}

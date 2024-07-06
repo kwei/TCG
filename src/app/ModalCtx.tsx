@@ -1,6 +1,5 @@
 "use client";
 
-import { Profile } from "@/app/(site)/Profile";
 import {
   createContext,
   ReactNode,
@@ -37,7 +36,7 @@ export const ModalCtx = ({ children }: { children: ReactNode }) => {
     <Ctx.Provider value={ctxVal}>
       {children}
       {open && (
-        <div className="fixed bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center backdrop-blur-sm">
+        <div className="fixed bottom-0 left-0 right-0 top-0 z-40 flex items-center justify-center backdrop-blur-sm">
           <div className="bg-highlight shadow-highlight rounded-xl p-[2px] shadow-lg">
             <div className="bg-base-color rounded-[10px] p-6">{content}</div>
           </div>
