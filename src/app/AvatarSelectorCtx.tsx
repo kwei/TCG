@@ -34,7 +34,7 @@ export const AvatarSelectorCtx = ({ children }: { children: ReactNode }) => {
                 type="button"
                 key={i.toString()}
                 onClick={() => setIndex(i + 1)}
-                className={`flex size-[72px] items-center justify-center rounded-full border-2 border-solid border-frame transition-all ${i === index ? "shadow-md shadow-light-primary" : "shadow-sm hover:shadow-md"}`}
+                className={`flex size-[72px] items-center justify-center rounded-full border-2 border-solid border-frame transition-all ${i + 1 === index ? "scale-110" : "scale-100"}`}
               >
                 <Image
                   src={`/avatars/${i + 1}.svg`}
