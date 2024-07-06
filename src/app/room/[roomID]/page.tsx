@@ -9,7 +9,14 @@ import { Desk } from "@/app/room/[roomID]/Desk";
 import { POKEMON_INDEX_RANGE } from "@/constants";
 import { rtcFlow } from "@/services/webRTC/rtcFlow";
 import { useParams } from "next/navigation";
-import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  FormEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 enum Role {
   Guest = "guest",
@@ -21,16 +28,20 @@ export default function Home() {
   const { userName: _userName, avatarIndex: _avatarIndex } = usePlayerCtx();
   const [userInfo, setUserInfo] = useState({
     userName: _userName,
-    avatarIndex: _avatarIndex
+    avatarIndex: _avatarIndex,
   });
   const { updateContent, close } = useModalCtx();
   const [messages, setMessages] = useState<Message[]>([]);
   const initRef = useRef<boolean>(false);
   const peerConnectionRef = useRef<RTCPeerConnection>();
   const dataChannelRef = useRef<RTCDataChannel>();
-  const signalingRef = useRef<(topic: string, from: string, data: string) => void>();
+  const signalingRef =
+    useRef<(topic: string, from: string, data: string) => void>();
 
-  const role = useMemo(() => _userName === "" ? Role.Guest : Role.Host, [_userName]);
+  const role = useMemo(
+    () => (_userName === "" ? Role.Guest : Role.Host),
+    [_userName],
+  );
 
   const handleOnMessage = (message: Message) => {
     setMessages((prevState) => {
@@ -46,17 +57,20 @@ export default function Home() {
     }
   }, []);
 
-  const handleJoinRoom = useCallback((event: FormEvent) => {
-    event.preventDefault();
-    const data = new FormData(event.target as HTMLFormElement);
-    const userName = data.get("userName") as string;
-    const avatarIndex = Number(data.get("avatarIndex") as string);
-    setUserInfo({
-      userName,
-      avatarIndex
-    });
-    close();
-  }, [close]);
+  const handleJoinRoom = useCallback(
+    (event: FormEvent) => {
+      event.preventDefault();
+      const data = new FormData(event.target as HTMLFormElement);
+      const userName = data.get("userName") as string;
+      const avatarIndex = Number(data.get("avatarIndex") as string);
+      setUserInfo({
+        userName,
+        avatarIndex,
+      });
+      close();
+    },
+    [close],
+  );
 
   const sendMessage = useCallback((message: Message) => {
     dataChannelRef.current?.send(JSON.stringify(message));
@@ -71,21 +85,23 @@ export default function Home() {
         />
         <button
           type="submit"
-          className="hover:bg-light-primary bg-primary text-base-color mt-8 w-full rounded-md py-2 font-bold transition-colors"
+          className="mt-8 w-full rounded-md bg-primary py-2 font-bold text-base-color transition-colors hover:bg-light-primary"
         >
           進入房間
         </button>
-      </form>
+      </form>,
     );
   }, [updateContent, handleJoinRoom]);
 
   useEffect(() => {
     if (!initRef.current) {
-      rtcFlow(roomID, role, handleOnMessage).then(({ peerConnection, dataChannel, send }) => {
-        peerConnectionRef.current = peerConnection;
-        dataChannelRef.current = dataChannel;
-        signalingRef.current = send;
-      });
+      rtcFlow(roomID, role, handleOnMessage).then(
+        ({ peerConnection, dataChannel, send }) => {
+          peerConnectionRef.current = peerConnection;
+          dataChannelRef.current = dataChannel;
+          signalingRef.current = send;
+        },
+      );
       if (role === Role.Guest) {
         handleSetUserInfo();
       }
@@ -96,11 +112,11 @@ export default function Home() {
   return (
     <main className="flex h-screen flex-col gap-2 overflow-hidden p-2">
       <ControlPanel leaveRoom={handleLeaveRoom} />
-      <div className="grid flex-1 grid-cols-12">
-        <div className="col-span-9 h-full">
+      <div className="flex w-full flex-1 flex-row gap-2">
+        <div className="h-full flex-1">
           <Desk />
         </div>
-        <div className="col-span-3 h-full">
+        <div className="h-full w-[300px]">
           <Chat messages={messages} userInfo={userInfo} send={sendMessage} />
         </div>
       </div>

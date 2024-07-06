@@ -27,8 +27,19 @@ body {
     background: var(--base-color);
 }
 
-@layer utilities {
-    .text-balance {
-        text-wrap: balance;
-    }
+*::-webkit-scrollbar {
+    width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    border-width: 10px;
+    background: var(--dark-base-color)
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: var(--light-base-color)
 }

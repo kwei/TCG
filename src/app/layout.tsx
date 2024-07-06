@@ -1,3 +1,4 @@
+import { AvatarSelectorCtx } from "@/app/AvatarSelectorCtx";
 import { ModalCtx } from "@/app/ModalCtx";
 import { PlayerCtx } from "@/app/PlayerCtx";
 import { ToastCtx } from "@/app/ToastCtx";
@@ -10,7 +11,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "KW-PTCG",
-  description: "A serverless and RTC application for PTCG (Pokemon Trading Card Game).",
+  description:
+    "A serverless and RTC application for PTCG (Pokemon Trading Card Game).",
 };
 
 export default function RootLayout({
@@ -21,11 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ModalCtx>
-          <ToastCtx>
-            <PlayerCtx>{children}</PlayerCtx>
-          </ToastCtx>
-        </ModalCtx>
+        <AvatarSelectorCtx>
+          <ModalCtx>
+            <ToastCtx>
+              <PlayerCtx>{children}</PlayerCtx>
+            </ToastCtx>
+          </ModalCtx>
+        </AvatarSelectorCtx>
       </body>
     </html>
   );
