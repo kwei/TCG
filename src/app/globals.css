@@ -3,23 +3,16 @@
 @tailwind utilities;
 
 :root {
-    --base-color: rgb(255 255 255);
-    --text: rgb(0 0 0);
-}
+    --base-color: rgb(30, 30, 30);
+    --dark-base-color: rgb(0 0 0);
+    --light-base-color: rgb(50 50 50);
+    --text: rgb(209 213 219);
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --base-color: rgb(30, 30, 30);
-        --dark-base-color: rgb(0 0 0);
-        --light-base-color: rgb(50 50 50);
-        --text: rgb(209 213 219);
-
-        --frame: rgb(75 85 99);
-        --light-frame: rgb(107 114 128);
-        --highlight: rgb(252 211 77);
-        --primary: rgb(245 158 11);
-        --light-primary: rgb(250, 185, 77);
-    }
+    --frame: rgb(75 85 99);
+    --light-frame: rgb(107 114 128);
+    --highlight: rgb(252 211 77);
+    --primary: rgb(245 158 11);
+    --light-primary: rgb(250, 185, 77);
 }
 
 body {
