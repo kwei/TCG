@@ -25,7 +25,7 @@ export async function rtcFlow(
 ) {
   const { send, onMessage, remove } = await createPieSocket(roomID);
 
-  peerConnection = createPeerConnection((ice) => {
+  peerConnection = await createPeerConnection((ice) => {
     console.log("Signaling ICE To Remote");
     send(Stage.RECEIVE_ICE, role, ice);
   });
