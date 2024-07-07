@@ -1,10 +1,8 @@
 export const createPeerConnection = async (
   onIceCandidate: (data: RTCIceCandidate) => void,
 ) => {
-  const response = await fetch(
-    "https://kw-ptcg.metered.live/api/v1/turn/credentials?apiKey=24267b6beb5b5e0eed6982010025d16103b7",
-  );
-  const iceServers = await response.json();
+  const response = await fetch("/api/stun");
+  const { iceServers } = await response.json();
   const pc = new RTCPeerConnection({ iceServers });
 
   pc.onicecandidate = (event) => {
