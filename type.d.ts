@@ -12,12 +12,14 @@ interface Room {
   Timestamp: string;
 }
 
+type UserInfo = {
+  userName: string;
+  avatarIndex: number;
+};
+
 interface Message {
   type: "chat" | "ctrl";
-  userInfo: {
-    userName: string;
-    avatarIndex: number;
-  };
+  userInfo: UserInfo;
   message: string;
   timestamp: number;
 }

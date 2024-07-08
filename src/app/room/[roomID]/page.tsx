@@ -43,13 +43,13 @@ export default function Home() {
     [_userName],
   );
 
-  const handleOnMessage = (message: Message) => {
+  const handleOnMessage = useCallback((message: Message) => {
     setMessages((prevState) => {
       const newState = Array.from(prevState);
       newState.push(message);
       return newState;
     });
-  };
+  }, []);
 
   const handleLeaveRoom = useCallback(() => {
     if (signalingRef.current) {
@@ -72,10 +72,13 @@ export default function Home() {
     [close],
   );
 
-  const sendMessage = useCallback((message: Message) => {
-    dataChannelRef.current?.send(JSON.stringify(message));
-    handleOnMessage(message);
-  }, []);
+  const sendMessage = useCallback(
+    (message: Message) => {
+      dataChannelRef.current?.send(JSON.stringify(message));
+      handleOnMessage(message);
+    },
+    [handleOnMessage],
+  );
 
   const handleSetUserInfo = useCallback(() => {
     updateContent(
@@ -107,14 +110,18 @@ export default function Home() {
       }
       initRef.current = true;
     }
-  }, [roomID, handleSetUserInfo, role]);
+  }, [roomID, handleSetUserInfo, role, handleOnMessage]);
 
   return (
     <main className="flex h-screen flex-col gap-2 overflow-hidden p-2">
       <ControlPanel leaveRoom={handleLeaveRoom} />
       <div className="flex w-full flex-1 flex-row gap-2">
         <div className="h-full flex-1">
-          <Desk />
+          <Desk
+            isHost={role === Role.Host}
+            userInfo={userInfo}
+            dataChannel={dataChannelRef.current}
+          />
         </div>
         <div className="h-full w-[300px]">
           <Chat messages={messages} userInfo={userInfo} send={sendMessage} />
