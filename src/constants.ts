@@ -115,7 +115,7 @@ export enum ActionType {
   SelectDeck = "已經選好牌組",
   SelectDeckAck = "確認選好牌組",
   FlipCoin = "擲硬幣",
-  GoFirst = "先攻者: ",
+  IsGoFirst = "是否先攻",
   Draw7Cards = "抽7張",
   PlaceBattleCard = "放置戰鬥寶可夢",
   ReDraw7Cards = "重新抽7張",
