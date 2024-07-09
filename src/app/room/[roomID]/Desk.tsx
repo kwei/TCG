@@ -19,7 +19,7 @@ export const Desk = ({ userInfo, dataChannel, isHost }: Props) => {
   useEffect(() => {
     if (dataChannel) {
       dataChannel.addEventListener("open", () => {
-        dataChannel.send(formatMessage(userInfo, ActionType.StartGame));
+        dataChannel.send(formatMessage(userInfo, ActionType.SelectDeck, ""));
       });
       dataChannel.addEventListener("message", (event) => {
         const data = JSON.parse(event.data) as Message;
@@ -34,7 +34,7 @@ export const Desk = ({ userInfo, dataChannel, isHost }: Props) => {
   }, [dataChannel, isHost, userInfo]);
 
   return (
-    <div className="grid h-full w-full grid-rows-2 gap-2 rounded-sm border border-solid border-frame p-2">
+    <div className="border-frame grid h-full w-full grid-rows-2 gap-2 rounded-sm border border-solid p-2">
       <RemoteBoard ref={remoteBoardRef} />
       <LocalBoard ref={localBoardRef} />
     </div>
