@@ -76,12 +76,15 @@ interface Ability {
 interface Card {
   id: number;
   name: string;
+  ability: Ability;
+}
+
+interface PokemonCard extends Card {
   hp: number;
   type: PokemonType[];
   evolveFrom?: Card;
   evolveTo?: Card[];
   attack: Attack[];
-  ability: Ability;
   retreatCost: number;
 
   active: boolean;
@@ -96,27 +99,47 @@ interface Card {
 }
 
 interface DeskContext {
-  localCardStack: Card[];
-  localHandCards: Card[];
+  // 檯面上可獲取的資訊
+  localCardStack: Array<PokemonCard>;
+  localHandCards: Array<PokemonCard>;
   localActiveCard: Card;
-  localBenchCards: Card[];
-  localSelectedCards: Card[];
-  localSyncopeArea: Card[];
-  localFoldArea: Card[];
+  localBenchCards: Array<PokemonCard>;
+  localSelectedCards: Array<PokemonCard>;
+  localSyncopeArea: Array<PokemonCard>;
+  localFoldArea: Array<PokemonCard>;
   remoteActiveCard: Card;
-  remoteBenchCards: Card[];
-  remoteSelectedCards: Card[];
-  remoteSyncopeArea: Card[];
-  remoteFoldArea: Card[];
+  remoteBenchCards: Array<PokemonCard>;
+  remoteSelectedCards: Array<PokemonCard>;
+  remoteSyncopeArea: Array<PokemonCard>;
+  remoteFoldArea: Array<PokemonCard>;
 
-  takeTurn: () => Promise<boolean>;
-  shuffleCards: () => void;
-  stackCardToBottom: () => void;
-  drawCardToHand: () => void;
-  drawAwardCards: () => void;
-  drawCardToShow: () => void;
-  drawCardNotShow: () => void;
-  drawCardToBench: () => void;
-  selectCardToShow: () => void;
-  selectFoldCard: () => void;
+  // 對牌庫的操作
+  drawCards: (num: number) => void;
+  drawCardsInBack: (num: number) => void;
+  drawCardsInFront: (num: number) => void;
+  shuffle: () => void;
+  placeRewardCards: () => void;
+  viewDeckAndSelectPokemonCards: (num: number) => void;
+  viewDeckAndSelectEnergyCards: (num: number) => void;
+  viewDeckAndSelectItemCards: (num: number) => void;
+  viewDeckAndSelectPropCards: (num: number) => void;
+  viewDeckAndSelectSupporterCards: (num: number) => void;
+
+  // 對棄牌區的操作
+  viewFoldAndSelectPokemonCards: (num: number) => void;
+  viewFoldAndSelectEnergyCards: (num: number) => void;
+  viewFoldAndSelectItemCards: (num: number) => void;
+  viewFoldAndSelectPropCards: (num: number) => void;
+  viewFoldAndSelectSupporterCards: (num: number) => void;
+
+  // 卡片基本的操作
+  // 對道具卡片的操作
+  // 對支援者卡片的操作
+
+  // 對寶可夢卡片的操作
+
+  // 對物品卡片的操作
+  // 對能量卡片的操作
+
+  // 對場地卡片的操作
 }

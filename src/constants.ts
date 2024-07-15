@@ -116,33 +116,52 @@ export enum ActionType {
   SelectDeckAck = "確認選好牌組",
   FlipCoin = "擲硬幣",
   IsGoFirst = "是否先攻",
-  Draw7Cards = "抽7張",
+  Draw7Cards = "抽七張",
   PlaceBattleCard = "放置戰鬥寶可夢",
-  ReDraw7Cards = "重新抽7張",
+  ReDraw7Cards = "重新抽七張",
   ExtraDraws = "重抽次數",
   StartGame = "開始遊戲",
   StartGameAck = "確認開始遊戲",
   TakeTurn = "換人",
 
   // 對牌庫的操作
-  Draw1Card = "抽一張",
-  Draw1CardInBack = "抽一張背面展示",
-  Draw1CardInFront = "抽一張正面展示",
+  DrawCards = "抽牌",
+  DrawCardsInBack = "抽牌以背面展示",
+  DrawCardsInFront = "抽牌以正面展示",
   Shuffle = "洗牌",
-  PlaceToBottom = "放至牌庫底",
   PlaceRewardCards = "放置獎勵牌",
+  ViewDeckAndSelectPokemonCards = "查看牌組並挑選寶可夢卡片",
+  ViewDeckAndSelectEnergyCards = "查看牌組並挑選能量卡片",
+  ViewDeckAndSelectItemCards = "查看牌組並挑選物品卡片",
+  ViewDeckAndSelectPropCards = "查看牌組並挑選道具卡片",
+  ViewDeckAndSelectSupporterCards = "查看牌組並挑選支援者卡片",
 
   // 對棄牌區的操作
+  ViewFoldAndSelectPokemonCards = "查看棄牌區並挑選寶可夢卡片",
+  ViewFoldAndSelectEnergyCards = "查看棄牌區並挑選能量卡片",
+  ViewFoldAndSelectItemCards = "查看棄牌區並挑選物品卡片",
+  ViewFoldAndSelectPropCards = "查看棄牌區並挑選道具卡片",
+  ViewFoldAndSelectSupporterCards = "查看棄牌區並挑選支援者卡片",
+
+  // 卡片基本的操作
+  // 對道具卡片的操作
+  // 對支援者卡片的操作
+  PlaceToDeckBottom = "放至牌庫底",
+  PlaceToDeck = "放至牌庫",
+  PlaceToFold = "放至棄牌區",
+  PlaceToHand = "放至手牌",
+  FlipToFront = "正面展示",
+  FlipToBack = "背面展示",
 
   // 對寶可夢卡片的操作
+  PlaceToBattle = "放至戰鬥區",
+  PlaceToBench = "放至備戰區",
+  PlaceToDead = "放至昏厥區",
 
   // 對物品卡片的操作
-
-  // 對道具卡片的操作
+  // 對能量卡片的操作
+  AttachToPokemonCard = "附加至寶可夢卡片",
 
   // 對場地卡片的操作
-
-  // 對支援者卡片的操作
-
-  // 對能量卡片的操作
+  PlaceToStadium = "放至場地區",
 }
