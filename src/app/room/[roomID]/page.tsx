@@ -123,7 +123,7 @@ export default function Home() {
             dataChannel={dataChannelRef.current}
           />
         </div>
-        <div className="h-full w-[300px]">
+        <div className="h-full w-[250px]">
           <Chat messages={messages} userInfo={userInfo} send={sendMessage} />
         </div>
       </div>

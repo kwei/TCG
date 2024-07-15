@@ -9,19 +9,17 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        "base-color": "var(--base-color)",
-        "dark-base-color": "var(--dark-base-color)",
-        "light-base-color": "var(--light-base-color)",
-        frame: "var(--frame)",
-        "light-frame": "var(--light-frame)",
-        highlight: "var(--highlight)",
-        primary: "var(--primary)",
-        "light-primary": "var(--light-primary)",
+        "text": "#fafafa",
+        "dark-base-color": "#27272a",
+        "base-color": "#52525b",
+        "light-base-color": "#71717a",
+        frame: "#d4d4d8",
+        "light-frame": "#e4e4e7",
+        primary: "#fbbf24",
+        highlight: "#fcd34d",
+        "light-primary": "#fde68a",
       },
     },
   },

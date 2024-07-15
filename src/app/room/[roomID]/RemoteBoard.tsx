@@ -3,6 +3,7 @@
 import { BattleCard } from "@/app/room/[roomID]/BattleCard";
 import { BenchCard } from "@/app/room/[roomID]/BenchCard";
 import { DeckCards } from "@/app/room/[roomID]/DeckCards";
+import { ExileCard } from "@/app/room/[roomID]/ExileCard";
 import { RewardCard } from "@/app/room/[roomID]/RewardCard";
 import { StadiumCard } from "@/app/room/[roomID]/StadiumCard";
 import { forwardRef, useCallback, useImperativeHandle } from "react";
@@ -27,7 +28,7 @@ export const RemoteBoard = forwardRef<RemoteBoardRef, Props>((props, ref) => {
       <div className="col-span-1 grid grid-rows-2 gap-2">
         <div className="row-span-1 flex items-center justify-center">
           {/* Fold Cards */}
-          <DeckCards />
+          <DeckCards fold />
         </div>
         <div className="row-span-1 flex items-center justify-center">
           {/* Deck Cards */}
@@ -54,8 +55,8 @@ export const RemoteBoard = forwardRef<RemoteBoardRef, Props>((props, ref) => {
       </div>
 
       {/* Reward Cards */}
-      <div className="col-span-1 flex items-end justify-center">
-        <div className="flex w-[126px] flex-row flex-wrap gap-1">
+      <div className="col-span-1 flex flex-col items-center justify-end gap-2">
+        <div className="flex w-full flex-row flex-wrap gap-1">
           <RewardCard />
           <RewardCard />
           <RewardCard />
@@ -63,6 +64,7 @@ export const RemoteBoard = forwardRef<RemoteBoardRef, Props>((props, ref) => {
           <RewardCard />
           <RewardCard />
         </div>
+        <ExileCard />
       </div>
     </div>
   );

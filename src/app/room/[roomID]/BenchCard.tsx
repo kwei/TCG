@@ -1,20 +1,9 @@
 "use client";
 
-import { useMemo } from "react";
-
-interface Props {
-  self?: boolean;
-}
-
-export const BenchCard = (props: Props) => {
-  const { self = false } = props;
-
-  const appliedCss = useMemo(
-    () => (self ? "rounded-t-md border-t-2" : "rounded-b-md border-b-2"),
-    [self],
-  );
-
+export const BenchCard = () => {
   return (
-    <div className={`${appliedCss} col-span-1 border-solid border-frame`}></div>
+    <div className="col-span-1 flex items-center justify-center rounded-b-md rounded-t-md border-b-2 border-t-2 border-solid border-frame">
+      <span>備戰區</span>
+    </div>
   );
 };

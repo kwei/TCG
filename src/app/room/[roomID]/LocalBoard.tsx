@@ -3,6 +3,7 @@
 import { BattleCard } from "@/app/room/[roomID]/BattleCard";
 import { BenchCard } from "@/app/room/[roomID]/BenchCard";
 import { DeckCards } from "@/app/room/[roomID]/DeckCards";
+import { ExileCard } from "@/app/room/[roomID]/ExileCard";
 import { RewardCard } from "@/app/room/[roomID]/RewardCard";
 import { StadiumCard } from "@/app/room/[roomID]/StadiumCard";
 import { forwardRef, useCallback, useImperativeHandle } from "react";
@@ -25,8 +26,9 @@ export const LocalBoard = forwardRef<LocalBoardRef, Props>((props, ref) => {
   return (
     <div className="row-span-1 grid w-full grid-cols-7 gap-2">
       {/* Reward Cards */}
-      <div className="col-span-1 flex items-start justify-center">
-        <div className="flex w-[126px] flex-row flex-wrap gap-1">
+      <div className="col-span-1 flex flex-col items-center justify-start gap-2">
+        <ExileCard />
+        <div className="flex w-full flex-row flex-wrap gap-1">
           <RewardCard />
           <RewardCard />
           <RewardCard />
@@ -45,12 +47,12 @@ export const LocalBoard = forwardRef<LocalBoardRef, Props>((props, ref) => {
         </div>
         {/* Bench Cards */}
         <div className="row-span-1 grid grid-cols-6 gap-2">
-          <BenchCard self />
-          <BenchCard self />
-          <BenchCard self />
-          <BenchCard self />
-          <BenchCard self />
-          <BenchCard self />
+          <BenchCard />
+          <BenchCard />
+          <BenchCard />
+          <BenchCard />
+          <BenchCard />
+          <BenchCard />
         </div>
       </div>
 
@@ -61,7 +63,7 @@ export const LocalBoard = forwardRef<LocalBoardRef, Props>((props, ref) => {
         </div>
         <div className="row-span-1 flex items-center justify-center">
           {/* Fold Cards */}
-          <DeckCards />
+          <DeckCards fold />
         </div>
       </div>
     </div>

@@ -34,7 +34,7 @@ export const Desk = ({ userInfo, dataChannel, isHost }: Props) => {
   }, [dataChannel, isHost, userInfo]);
 
   return (
-    <div className="border-frame grid h-full w-full grid-rows-2 gap-2 rounded-sm border border-solid p-2">
+    <div className="grid h-full w-full grid-rows-2 gap-2 p-2">
       <RemoteBoard ref={remoteBoardRef} />
       <LocalBoard ref={localBoardRef} />
     </div>

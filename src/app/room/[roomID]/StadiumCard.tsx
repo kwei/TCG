@@ -16,7 +16,9 @@ export const StadiumCard = (props: Props) => {
 
   return (
     <div
-      className={`${appliedCss} absolute left-0 h-[130px] w-[100px] rounded-sm border border-solid border-frame`}
-    ></div>
+      className={`${appliedCss} absolute left-0 flex aspect-[0.85] w-[100px] items-center justify-center rounded-sm border border-solid border-frame`}
+    >
+      <span>場地牌</span>
+    </div>
   );
 };

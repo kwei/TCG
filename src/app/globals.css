@@ -2,22 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    --base-color: rgb(30, 30, 30);
-    --dark-base-color: rgb(0 0 0);
-    --light-base-color: rgb(50 50 50);
-    --text: rgb(209 213 219);
-
-    --frame: rgb(75 85 99);
-    --light-frame: rgb(107 114 128);
-    --highlight: rgb(252 211 77);
-    --primary: rgb(245 158 11);
-    --light-primary: rgb(250, 185, 77);
-}
-
 body {
-    color: var(--text);
-    background: var(--base-color);
+    @apply text-text bg-base-color;
 }
 
 *::-webkit-scrollbar {
@@ -30,9 +16,9 @@ body {
 
 *::-webkit-scrollbar-thumb {
     border-width: 10px;
-    background: var(--dark-base-color)
+    @apply bg-dark-base-color;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-    background: var(--light-base-color)
+    @apply bg-light-base-color;
 }

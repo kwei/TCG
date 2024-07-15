@@ -19,7 +19,7 @@ export const Profile = ({ randomIndex }: { randomIndex: number }) => {
     <div className="flex w-full flex-col items-center">
       <button
         type="button"
-        onClick={open}
+        onClick={() => open(avatarIndex)}
         className="group relative flex size-[160px] cursor-pointer items-center justify-center rounded-full border-4 border-solid border-frame"
       >
         <Image
@@ -31,7 +31,7 @@ export const Profile = ({ randomIndex }: { randomIndex: number }) => {
           priority
         />
         <div className="absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center rounded-full bg-frame opacity-0 transition-opacity group-hover:opacity-60">
-          <TbPencil className="size-10" />
+          <TbPencil className="size-10 text-dark-base-color" />
         </div>
         <input
           type="number"
