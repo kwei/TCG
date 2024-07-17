@@ -98,20 +98,24 @@ interface PokemonCard extends Card {
   paralysis: boolean;
 }
 
+interface ItemCard extends Card {
+
+}
+
 interface DeskContext {
   // 檯面上可獲取的資訊
-  localCardStack: Array<PokemonCard>;
-  localHandCards: Array<PokemonCard>;
-  localActiveCard: Card;
+  localCardStack: Array<Card>;
+  localHandCards: Array<Card>;
+  localBattleCard?: PokemonCard;
   localBenchCards: Array<PokemonCard>;
-  localSelectedCards: Array<PokemonCard>;
+  localSelectedCards: Array<Card>;
   localSyncopeArea: Array<PokemonCard>;
-  localFoldArea: Array<PokemonCard>;
-  remoteActiveCard: Card;
-  remoteBenchCards: Array<PokemonCard>;
-  remoteSelectedCards: Array<PokemonCard>;
+  localFoldArea: Array<Card>;
+  remoteBattleCard?: PokemonCard;
+  remoteBenchCards: Array<Card>;
+  remoteSelectedCards: Array<Card>;
   remoteSyncopeArea: Array<PokemonCard>;
-  remoteFoldArea: Array<PokemonCard>;
+  remoteFoldArea: Array<Card>;
 
   // 對牌庫的操作
   drawCards: (num: number) => void;
@@ -135,11 +139,22 @@ interface DeskContext {
   // 卡片基本的操作
   // 對道具卡片的操作
   // 對支援者卡片的操作
+  placeToDeckBottom: (card: Card) => void;
+  placeToDeck: (card: Card) => void;
+  placeToFold: (card: Card) => void;
+  placeToHand: (card: Card) => void;
+  flipToFront: (card: Card) => void;
+  flipToBack: (card: Card) => void;
 
   // 對寶可夢卡片的操作
+  placeToBattle: (card: PokemonCard) => void;
+  placeToBench: (card: PokemonCard) => void;
+  placeToDead: (card: PokemonCard) => void;
 
   // 對物品卡片的操作
   // 對能量卡片的操作
+  attachToPokemonCard: (card: PokemonCard, item: ItemCard) => void;
 
   // 對場地卡片的操作
+  placeToStadium: (card: Card) => void;
 }

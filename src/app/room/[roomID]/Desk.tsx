@@ -1,5 +1,6 @@
 "use client";
 
+import { GameBoardCtx } from "@/app/room/[roomID]/GameBoardCtx";
 import { LocalBoard, LocalBoardRef } from "@/app/room/[roomID]/LocalBoard";
 import { RemoteBoard, RemoteBoardRef } from "@/app/room/[roomID]/RemoteBoard";
 import { ActionType } from "@/constants";
@@ -35,8 +36,10 @@ export const Desk = ({ userInfo, dataChannel, isHost }: Props) => {
 
   return (
     <div className="grid h-full w-full grid-rows-2 gap-2 p-2">
-      <RemoteBoard ref={remoteBoardRef} />
-      <LocalBoard ref={localBoardRef} />
+      <GameBoardCtx>
+        <RemoteBoard ref={remoteBoardRef} />
+        <LocalBoard ref={localBoardRef} />
+      </GameBoardCtx>
     </div>
   );
 };
